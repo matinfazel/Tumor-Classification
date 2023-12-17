@@ -1,5 +1,4 @@
 
-import torch
 from torchvision import transforms
 import os
 from PIL import Image
@@ -7,7 +6,7 @@ import numpy as np
 import pandas as pds
 from torch.utils.data import DataLoader,TensorDataset,random_split
 
-
+############################################################## Loading Data
 n = 3762
 image=[]
 cw = os.getcwd().replace(os.sep, '/')
@@ -26,13 +25,17 @@ for i in range(n):
 data = np.array(image)
 data = data/255
 data = torch.from_numpy(data).permute((0,3,2,1))
-data = data.float()
-targets = torch.tensor(targets)
+data = data.float().to(cuda)
+targets = torch.tensor(targets).to(cuda)
 dataset = TensorDataset(data,targets)
 batch_size = 4
 val_size = int(np.ceil(len(dataset)*0.2))
 train_size = len(dataset) - val_size 
 
 train_data,test_data = random_split(dataset,[train_size,val_size])
-train_loader = DataLoader(train_data,batch_size = batch_size,shuffle=True)
-test_loader = DataLoader(test_data,batch_size = batch_size,shuffle=True)
+
+# your code 
+
+train_loader = ...        #Put the train data into a data loader
+test_loader = ...         #Put the train data into a data loader
+# end 
